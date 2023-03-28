@@ -118,6 +118,13 @@ var arr = [1, 2, 3.14, 'Hello', null, true];
 
 ES6标准新增了一种多行字符串的表示方法，用反引号 **\`...\`** 表示
 
+**模板字符串**
+
+ES6 的新语法：用于拼接字符串和变量。
+
+- 用反引号 **\` \`** 表示
+- 变量用 `${}` 表示
+
 **字符串连接**
 
 ```javascript
@@ -125,7 +132,7 @@ var name = '小明';
 var age = 20;
 //1.加号连接
 var message = '你好, ' + name + ', 你今年' + age + '岁了!';
-//2.ES6新增的
+//2.ES6新增的模板字符串
 var message = `你好, ${name}, 你今年${age}岁了!`;
 ```
 
@@ -138,7 +145,14 @@ var message = `你好, ${name}, 你今年${age}岁了!`;
 
 对数组没有明确的限制，但是在编写代码时，**不建议直接修改 `Array` 的大小，访问索引时要确保索引不会越界**。
 
+- `arr.splice()`
+- `arr.push()`
+- `arr.pop()`
+- `arr.unshift()`
+- `arr.shift()`
+
 ```javascript
+//数组切片，从索引0开始，到索引3(不包含索引3)
 b = arr.slice(0, 3);
 // 从索引2开始删除3个元素,然后再添加两个元素:
 arr.splice(2, 3, 'Google', 'Facebook');
@@ -157,10 +171,6 @@ arr.pop();
 arr.unshift('a', 'b');
 arr.shift();
 ```
-
-
-
-
 
 ### 2.5 对象
 
@@ -225,9 +235,11 @@ s.forEach( function(element, sameElement, array){
 
 JavaScript 关键字: **let** 和 **const**。
 
-let 声明的变量只在 let 命令所在的代码块内 `{...}` 有效。
+2015 年前，使用 var 声明 JavaScript 变量，2015 年后的 JavaScript 版本 (ES6) 允许使用 const 定义一个常量；let 定义其作用域的变量；Symbol 是 ES6 引入了一种新的原始数据类型，表示独一无二的值。
 
-const 声明一个只读的常量，一旦声明，常量的值就不能改变。
+- let 声明的变量只在 let 命令所在的代码块内 `{...}` 有效。
+
+- const 声明一个只读的常量，一旦声明，常量的值就不能改变。
 
 **var 和 let**
 
@@ -717,29 +729,133 @@ let xiaoming = createStudent({
 
 # 第二部分 Web APIs
 
+## 4.概述
 
+Web APIs 的核心是 DOM 和 BOM。
 
+### 4.1 DOM
 
+动态修改 HTML，用于网页特效及用户交互。
 
+- 元素节点：HTML 标签
+- 属性节点：HTML 标签中的属性
+- 文本节点：HTML 标签中的文字内容
+- 根节点：`<html><\html>`
 
+<img src="img/02.jpg" style="zoom:80%;" />
 
+document 是 JavaScript 内置的专门用于 DOM 的对象：
 
+```html
+    <script>
+        // 1.获取根节点
+        console.log(document.documentElement);
+        // 2.获取body节点
+        console.log(document.body);
+        // 3.向网页中输入内容
+        document.write('Hi DOM')
+    </script>
+```
 
+**获取 DOM 对象**
 
+- **`document.querySelector('p')` ：**获取第一个 p 元素
+- **`document.querySelector('.box')` ：**获取选择器
+- **`document.querySelectorAll('ul li')`**：获取满足条件的所有元素
+- `document.getElementById`，`document.getElementsByTagName` (Element 是否为复数)
 
-
-
-元数据：描述数据的数据，主要用于描述数据属性（property）的信息，包括数据存储位置、历史数据、资源查找、文件记录等功能。
+`document.querySelectorAll('ul li')`：获取满足条件的集合数组，但不是真正意义上的数组，是伪数组，不具有数组对应的方法，但有**长度和索引号**。
 
 ```javascript
-分号;分隔
-注释单行 //;多行 /* */
-字面量：固定值
-2015年前，使用var声明JavaScript变量
-2015年后的JavaScript版本(ES6)允许使用
-const定义一个常量;let定义其作用域的变量
-Symbol 是 ES6 引入了一种新的原始数据类型，表示独一无二的值。
+for (let i =0; i < lis.length; i++){
+    console.log(lis[i]);
+}
 ```
+
+### 4.2 DOM 对象操作
+
+**修改文本内容**
+
+```html
+   <script>
+        const p_inner = document.querySelector('p');
+		//获取选择器
+		const selector_inner = document.querySelector('.intro');
+        p_inner.innerText = 'innerText 生成';
+		//可解析标签
+        p_inner.innerHTML = '<h4>可解析标签的 innerHTML</h4>';
+    </script>
+```
+
+**style 样式操作**
+
+- 修改样式属性 **对象.style.样式属性 = '值（单位）'**  
+- 如果属性有 `-` 连接符，使用小驼峰命名法避免冲突；
+
+```html
+<head>
+    <style>
+        /* css样式 */
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: aqua;
+        }
+    </style>
+</head>    
+<body>
+    <div class="box"></div>
+    <script>
+        const box = document.querySelector('.box');
+        box.style.width = '100px';
+        //注意“backgroundColor”的小驼峰引用方式
+        box.style.backgroundColor = 'green';
+    </script>
+</body>
+```
+
+**类名操作**
+
+- `div.className()`：单个类的添加，会覆盖之前的类
+- `div.classList.add()`：添加类
+- `div.classList.remove()`：移除类
+- **`div.classList.toggle()`：切换类，有则删除，没有则加上。**
+
+```html
+    <style>
+        /* css样式 */
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <script>
+      //为 div 增添类，用新值换旧值
+        const div = document.querySelector('div');
+        div.className = 'box';
+        // 添加多个类：div.className = 'box nav';
+    </script>
+```
+
+**表单元元素属性操作**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 设计缺陷说明
 
@@ -1031,12 +1147,12 @@ var result = reg.test(str);
 
 4.文本节点：标签中的文本内容;
 
-| 节点类型 | nodeName  | nodeType | nodeValue |
-| :------: | :-------: | :------: | :-------: |
-| 文档节点 | #document |    9     |   null    |
-| 元素节点 |  元素名   |    1     |   null    |
-| 属性节点 |  属性名   |    2     |  属性值   |
-| 文本节点 |   #text   |    3     | 文本内容  |
+|      |      |      |      |
+| :--: | :--: | :--: | :--: |
+|      |      |      |      |
+|      |      |      |      |
+|      |      |      |      |
+|      |      |      |      |
 
 ```javascript
 document.getElementById();
@@ -1051,8 +1167,6 @@ document.getElementById("demo").innerHTML = "Hello World!";
 document.getElementsByTagName(name);
 document.getElementsByClassName(name);
 ```
-
-![image-20220404202802726](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20220404202802726.png)
 
 
 

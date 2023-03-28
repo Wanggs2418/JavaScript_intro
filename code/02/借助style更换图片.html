@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用CSS更换图片</title>
+    <style>
+        body {
+            background: url(img/01.jpg);
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function getRandom(N, M){
+            return Math.floor(Math.random() * (M - N + 1)) + N;
+        }
+        const random = getRandom(1,2);
+        document.body.style.background = `url(img/0${random}.jpg)`;
+    </script>
+</body>
+</html>

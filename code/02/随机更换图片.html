@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机更换图片</title>
+</head>
+<body>
+    <img src="img/01.jpg" alt="背景图片">
+    
+    <script>
+        // 随机数生成,[N, M]的任意整数
+        function getRandom(N, M){
+            return Math.floor(Math.random() * (M - N + 1)) + N;
+        }
+        const img = document.querySelector('img');
+        const random = getRandom(1,2);
+        console.log(random);
+        img.src = `img/0${random}.jpg`;
+    </script>
+    
+</body>
+</html>

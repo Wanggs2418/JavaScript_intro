@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 选择器 */
+        .box {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        盒子，选择器类为 box
+    </div>
+    <div class="box">
+        ed
+    </div>
+    <p id="nav">
+        id 为 nav
+    </p>
+    <script>
+        const p_inner = document.querySelector('.box');
+        p_inner.innerText = 'innerText 生成';
+        p_inner.innerHTML = '<h4>可解析标签的 innerHTML</h4>';
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 选择器操作</title>
+    <style>
+        /* css样式 */
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <script>
+        const box = document.querySelector('.box');
+        box.style.width = '100px';
+        box.style.backgroundColor = 'green';
+        const div = document.querySelector('div');
+        div.className = 'box';
+    </script>
+</body>
+</html>
