@@ -841,9 +841,163 @@ for (let i =0; i < lis.length; i++){
     </script>
 ```
 
-**表单元元素属性操作**
+**轮播图案例**
+
+1. 准备一个数组对象，里面包含详细的信息
+2. 随机选择一个数字，选出对应数组的对象，更换图片和背景以及文字内容
+3. 利用随机数字，让小圆点添加高亮的类 (addClass)，利用 css 结构伪类选择器
+
+[推荐动态轮换图](code\02\案例\动态轮换图.html) (说明：预设时间为  2000 ms)
 
 
+
+**操作表单属性**
+
+H5 新规范，属性和值一样，可只写一个，如：
+
+```html
+<button disabled="disabled">按钮演示</button>
+<!-- 可简写为： -->
+<button disabled>按钮演示</button>
+```
+
+**注意，对于字符串类型，除了空字符串为 false 外，其余均为 true**t
+
+`disabled=false`，是否禁用按钮，防止再次点击，如手机验证码的收取过程。
+
+`button` 为双标签，获取表单的内容，应使用 `btn.innerHTML`
+
+```html
+<body>
+    <input type="text" value="输入">
+    <button disabled>按钮演示</button>
+    <input type="checkbox" class="agree" name="" id="">
+    <script>
+        let inputs = document.querySelector('input')
+        inputs.value = "输入的内容提升"
+        inputs.type = "password"
+
+        let btn = document.querySelector('button')
+        btn.disabled = false
+
+        let checkbox = document.querySelector('.agree')
+        // 复选框勾选
+        // 字符串空字符串位 False,其余为 True
+        checkbox.checked = true
+    </script>
+</body>
+```
+
+**自定义属性**
+
+`html5` 推出专门的 data-自定义属性，以 data 开头。一律以 dataset 对象方式获取：
+
+```html
+<body>
+    <div data-id="1"> 以data-开头的自定义属性 </div>
+    <script>
+        let div = document.querySelector('div')
+        // 获取自定义属性值
+        div.dataset.id = 2
+    </script>
+</body>
+```
+
+**间歇函数**
+
+定时器，`setInterval` 是 JS 中的内置函数，**每隔一段时间自动重复执行另一个函数。**
+
+1.开启定时器
+
+尤其适用于匿名函数
+
+`setInterval(function(){}, 1000)`
+
+2.关闭定时器
+
+`clearInterval(定时器序号)` 
+
+```html
+<script>
+    // 1.开启定时器，返回定时器序号
+    let n = setInterval(function(){
+        console.log('时间')
+    }, 1000)
+    // 2.关闭定时器
+    // 关闭对应的序号
+    clearInterval(n)
+</script>
+```
+
+## 5.事件
+
+### 5.1 事件监听
+
+事件：系统发生的动作或发生的事情。
+
+事件监听：也称为绑定事件或注册事件，等待事件发生时，会调用相关函数。
+
+**`元素对象.addEventListener('事件类型', 要执行的函数)`**
+
+- 事件源：元素对象
+- 事件类型：**用什么触发**，如鼠标单击，鼠标经过等
+- 事件调用函数：要做的事情
+
+`parseInt` 与 `Math.floor` 本质相同，只取整数部分。
+
+
+
+**事件监听的版本**
+
+`DOM L0(level 0)`
+
+事件源.on事件 = function(){}
+
+`DOM L2(level 2)`
+
+事件源.addEventListener(事件，事件处理函数)
+
+**区别**
+
+on 方式会被覆盖，而 addEventListener 方式可绑定多次，拥有事件更多特性。
+
+```javascript
+//DOM L0
+//存在覆盖问题
+const btn = document.querySelector('button')
+btn.onclick = function(){
+            alert("DOM L0")
+        }
+
+//DOM L2 不存在覆盖问题
+btn.addEventListener('click', function(){
+    alert('首次弹出')
+})
+btn.addEventListener('click', function(){
+    alert('二次弹出')
+})
+```
+
+
+
+**事件类型**
+
+![](img/03.jpg)
+
+### 5.2 完整轮播图案例
+
+需求：点击左右按钮实现左右切换
+
+分析:
+
+- 右侧按钮点击，变量自增，大于等于数组长度则，复原 0；
+- 左侧按钮点击，变量自减，小于 0，则复原最后一张；
+- 鼠标经过暂定计时器；
+- 离开则启动定时器；
+
+[完整轮播图案例](code\03\案例\完整轮播图.html)
+
+### 5.3 
 
 
 

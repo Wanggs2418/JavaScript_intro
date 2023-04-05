@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .box {
+            width: 600px;
+            margin: 50px auto;
+            display: flex;
+            font-size: 25px;
+            line-height: 40px;
+        }
+
+        .qs {
+
+            width: 450px;
+            height: 40px;
+            color: red;
+
+        }
+
+        .btns {
+            text-align: center;
+        }
+
+        .btns button {
+            width: 120px;
+            height: 35px;
+            margin: 0 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul>
+            <li>随机点名案例分析：</li>
+            <li>点击开始按钮随机抽取数组中的数据</li>
+            <li>点击结束按钮删除当前抽取的一个数据</li>
+            <li>抽取到最后一个数据时候，按钮都被禁止</li>
+        </ul>
+
+    </div>
+    <h2>随机点名</h2>
+    <div class="box">
+        <span>名字是：</span>
+        <div class="qs">这里显示姓名</div>
+    </div>
+    <div class="btns">
+        <button class="start">开始</button>
+        <button class="end">结束</button>
+    </div>
+
+    <script>
+        // 数据数组
+        const arr = ['马超', '黄忠', '赵云', '关羽', '张飞']
+        const qs = document.querySelector('.qs')
+        const end = document.querySelector('.end')
+
+        let timeId = 0
+        let random = 0
+
+        // 1.给开始按钮注册事件
+        const start = document.querySelector('.start')
+        start.addEventListener('click', function(){
+            timeId = setInterval(function(){
+                // parseInt 与Math.floor 本质相同，只取整数部分
+            const random = parseInt(Math.random() * arr.length) 
+            qs.innerHTML = arr[random]
+            }, 200)
+
+            if (arr.length === 1){
+            start.disabled = true
+            end.disabled = true
+        }
+        })
+
+        // 2.关闭按钮
+        end.addEventListener('click', function(){
+            clearInterval(timeId)
+            // 删除抽到的名字
+            arr.splice(random, 1)
+        })
+
+    </script>
+
+</body>
+
+</html>

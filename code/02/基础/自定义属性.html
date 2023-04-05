@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div data-id="1" data-example="自定义实例"> 以data-开头的自定义属性 </div>
+    <script>
+        let div = document.querySelector('div')
+        // 获取自定义属性值
+        div.dataset.id = 2
+        div.dataset.example = "更改自定义文字"
+    </script>
+</body>
+</html>
