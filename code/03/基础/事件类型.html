@@ -35,6 +35,12 @@
         input.addEventListener('blur', function() {
             console.log('失去焦点')
         })
+    // 文本输入触发
+        const text = document.querySelector('input')
+        text.addEventListener('input', function() {
+            // 获得输入内容
+            console.log(text.value)
+        })
         
     </script>
 </body>

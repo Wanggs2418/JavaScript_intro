@@ -984,6 +984,13 @@ btn.addEventListener('click', function(){
 
 ![](img/03.jpg)
 
+- 鼠标事件：`click,mouseenter,mouseleave`
+- 焦点事件：`focus,blur`
+- 键盘事件：`keydown,keyup`
+- 文本事件:`input`
+
+
+
 ### 5.2 完整轮播图案例
 
 需求：点击左右按钮实现左右切换
@@ -997,7 +1004,24 @@ btn.addEventListener('click', function(){
 
 [完整轮播图案例](code\03\案例\完整轮播图.html)
 
-### 5.3 
+### 5.3 事件对象
+
+事件对象存储了触发时的相关信息，如鼠标点击事件中，事件对象就存储了鼠标点的位置信息。
+
+语法：事件绑定的**回调函数的第一个参数**就是事件对象；一般命名为：event，ev，e
+
+```javascript
+元素.addEventListener('click', function(e){
+    
+})
+```
+
+**事件对象的属性**
+
+- `type`：事件类型
+- `clientX/clientY`：获取光标相对于浏览器可见窗口左上位置
+- `offsetX/offsetY`：相对于当前 DOM 元素的位置，如在盒子中的位置
+- `key`：用户按下的键盘的值，keycode 已经废弃
 
 
 
