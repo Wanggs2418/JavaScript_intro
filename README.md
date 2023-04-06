@@ -6,4 +6,3 @@ B站视频教程：[黑马程序员 2023 JS 教程](https://www.bilibili.com/vid
 
 官方文档查看：[官网文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript)
 
-"https://img2023.cnblogs.com/blog/2584038/202303/2584038-20230326234611042-40544039.jpg"
