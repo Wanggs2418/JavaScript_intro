@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* w100+h200+bgc 快捷书写方式 */
+        .father { 
+            width: 100px;
+            height: 200px;
+            background-color: purple;
+        }
+        .son {
+            width: 50px;
+            height: 50px;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div class="father">
+        <div class="son"></div>
+    </div>
+    <button>
+        点击
+    </button>
+    <script>
+        const btn = document.querySelector('button')
+        const fa = document.querySelector('.father')
+        const son = document.querySelector('.son')
+        document.addEventListener('click', function(){
+            alert("DOM元素")
+        })
+        fa.addEventListener('click', function() {
+            alert('父级元素')
+        })
+        son.addEventListener('click', function(e) {
+            alert('子级元素')
+            // 阻止子级元素的冒泡，前提是拿到事件对象中该方法
+            e.stopPropagation()
+        })
+
+        // 设置名字的函数
+        function myfn() {
+            alert('外部设置名字的函数')
+        }
+
+        btn.addEventListener('click', myfn)
+        // level 2 解绑事件
+        btn.removeEventListener('click', myfn)
+    </script>
+</body>
+</html>

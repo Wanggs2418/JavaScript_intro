@@ -947,6 +947,28 @@ H5 新规范，属性和值一样，可只写一个，如：
 
 
 
+**事件注册的区别**
+
+传统形式的 on 注册 (L0)：
+
+- 针对同一个对象，后面注册的事件会覆盖前面注册事件
+- 解绑时，可直接使用 null 覆盖前面注册的事件
+- 都具有冒泡执行，无捕获
+
+事件监听注册 (L2)：
+
+- 通过 **`元素对象.addEventListener('事件类型', 要执行的函数, 获取捕获或冒泡阶段)`**
+- 同一事件，后面注册的不会覆盖前面的
+- 可通过第三个参数确定是在捕获还是冒泡阶段执行
+- 匿名函数无法解绑
+- 必须使用**`元素对象.removeEventListener('事件类型', 要处理的函数, 获取捕获或冒泡阶段)`**解绑
+
+
+
+
+
+
+
 **事件监听的版本**
 
 `DOM L0(level 0)`
@@ -1022,6 +1044,82 @@ btn.addEventListener('click', function(){
 - `clientX/clientY`：获取光标相对于浏览器可见窗口左上位置
 - `offsetX/offsetY`：相对于当前 DOM 元素的位置，如在盒子中的位置
 - `key`：用户按下的键盘的值，keycode 已经废弃
+
+### 5.4 环境对象
+
+指函数内部**特殊变量 this**，代表当前函数运行时**所处的环境**
+
+谁调用，this 指向谁
+
+**回调函数**：函数作为参数传递给另一个函数，该函数就是回调函数。
+
+注意：**css 选择器从 1 开始**
+
+```javascript
+document.querySelector(`.tab-content .item:nth-child(${i+1})`).classList.add('active')
+```
+
+## 6.事件流
+
+### 6.1 概述
+
+事件流是事件完整执行过程中的流动路径。两个阶段：**捕获**和**冒泡**，实际常用的为**冒泡**。
+
+而 level 0 无捕获阶段。
+
+<img src="img/04.jpg" style="zoom:80%;" />
+
+```html
+<style>
+        /* w100+h200+bgc 快捷书写方式 */
+        .father{
+            width: 100px;
+            height: 200px;
+            background-color: #fff;
+        }
+</style>
+```
+
+`DOM.addEventListener(事件类型，事件处理函数， 是否使用捕获机制)`
+
+- 第三个参数一般很少使用，默认为 false，代表冒泡阶段触发
+- true 代表捕获阶段触发
+
+**事件冒泡：**依次向上寻找。一个元素事件触发时，会依次调用所有父级元素的**同名事件**，如都为 `click` 事件。
+
+**阻止冒泡：**把事件限制在当前元素中去，前提是需要拿到事件对象。
+
+`事件对象.stopPropagation()`：阻止冒泡和传播
+
+### 6.2 事件解绑
+
+**事件解绑**
+
+- `on` 事件直接使用 null 覆盖即可实现。
+- `addEventListener` 需要使用 `removeEventListener(事件类型,事件处理函数,[捕获或冒泡阶段])`
+
+对于匿名函数，无法解绑
+
+```javascript
+        // 设置名字的函数
+        function myfn() {
+            alert('外部设置名字的函数')
+        }
+
+        btn.addEventListener('click', myfn)
+        // level 2 解绑事件
+        btn.removeEventListener('click', myfn)
+```
+
+**鼠标经过事件**
+
+- mouseover 和 mouseout 会有冒泡效果
+
+  非必要的冒泡，尤其对于多盒子布局影响效率
+
+- **mouseenter 和 mouseleave 无冒泡效果(推荐)**
+
+
 
 
 
@@ -1324,13 +1422,6 @@ var result = reg.test(str);
 3.属性节点：元素的属性;
 
 4.文本节点：标签中的文本内容;
-
-|      |      |      |      |
-| :--: | :--: | :--: | :--: |
-|      |      |      |      |
-|      |      |      |      |
-|      |      |      |      |
-|      |      |      |      |
 
 ```javascript
 document.getElementById();
