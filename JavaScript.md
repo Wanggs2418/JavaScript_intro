@@ -965,10 +965,6 @@ H5 新规范，属性和值一样，可只写一个，如：
 
 
 
-
-
-
-
 **事件监听的版本**
 
 `DOM L0(level 0)`
@@ -1059,6 +1055,8 @@ btn.addEventListener('click', function(){
 document.querySelector(`.tab-content .item:nth-child(${i+1})`).classList.add('active')
 ```
 
+
+
 ## 6.事件流
 
 ### 6.1 概述
@@ -1118,6 +1116,41 @@ document.querySelector(`.tab-content .item:nth-child(${i+1})`).classList.add('ac
   非必要的冒泡，尤其对于多盒子布局影响效率
 
 - **mouseenter 和 mouseleave 无冒泡效果(推荐)**
+
+### 6.3事件委托
+
+利用事件流解决；本质是**利用事件冒泡**的特点。**减少注册次数**，提高程序的性能。
+
+- **原理：**给**父元素/祖先元素**注册事件，触发子元素会冒泡到父元素/祖先元素上。
+- **实现：**`事件对象.traget.tagName` 可以获得真正触发事件的元素
+
+```javascript
+//打印对象的所有属性
+console.dir(e.target)
+```
+
+![](E:\JavaScript_intro\img\05.jpg)
+
+```javascript
+        const ul = document.querySelector('ul');
+        ul.addEventListener('click', function(e) {
+            // console.dir(e)
+            console.dir(e.target)
+            // 只有对应的子元素为li时，才添加元素
+            if (e.target.tagName === 'LI') {
+                e.target.style.color = 'red';
+            }
+        })
+```
+
+**补充：隐式转换**
+
+```javascript
+//+将字符串变为数值
+const i = +e.target.dataset.id;
+```
+
+
 
 
 
@@ -1179,8 +1212,6 @@ var x1 = str1.length
 //要判断一个属性是否自身拥有而不是继承得到，可以用hasOwnProperty()方法
 objectdemo1.hasOwnProperty('name');
 ```
-
-
 
 document.querySelector("#demo")返回文档中匹配指定CSS选择器的第一个元素。querySelectorAll()返回所有元素。
 

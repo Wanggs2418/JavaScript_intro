@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>第一个li</li>
+        <li>第二个li</li>
+        <li>第三个li</li>
+        <li>第四个li</li>
+    </ul>
+
+    <script>
+        // 获取父级元素
+        const ul = document.querySelector('ul');
+        ul.addEventListener('click', function(e) {
+            // console.dir(e)
+            console.dir(e.target)
+            // 只有对应的子元素为li时，才添加元素
+            if (e.target.tagName === 'LI') {
+                e.target.style.color = 'red';
+            }
+        })
+    </script>
+</body>
+</html>

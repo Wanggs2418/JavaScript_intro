@@ -106,12 +106,12 @@
     const as = document.querySelectorAll('.tab-nav a')
     for (let i = 0; i < as.length; i++){
         as[i].addEventListener('mouseenter', function() {
-            // 上部导航栏操作
+            //1. 上部导航栏操作
             // 先去除
             document.querySelector('.tab-nav .active').classList.remove('active')
             this.classList.add('active')
 
-            // 下部内容栏目操作
+            //2. 下部内容栏目操作
             // 对应的显示内容
             document.querySelector('.tab-content .active').classList.remove('active')
             // css 选择器从 1 开始
